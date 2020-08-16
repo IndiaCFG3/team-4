@@ -144,7 +144,7 @@ public class DashboardFragment extends Fragment {
                         String email = (String) document.get("email");
 
                         Bitmap bitmapSmall = BitmapFactory.decodeResource(getResources(), R.drawable.tiss);
-                        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmapSmall, 1200, 518, false);
+                        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmapSmall, 900, 518, false);
 
                         PdfDocument pdfDocument = new PdfDocument();
                         Paint paint = new Paint();
@@ -154,7 +154,7 @@ public class DashboardFragment extends Fragment {
                         PdfDocument.Page page = pdfDocument.startPage(pageInfo);
 
                         Canvas canvas = page.getCanvas();
-                        canvas.drawBitmap(scaledBitmap, 0, 0, paint);
+                        canvas.drawBitmap(scaledBitmap, 20, 30, paint);
 
                         titlePaint.setTextAlign(Paint.Align.CENTER);
                         titlePaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
@@ -163,26 +163,26 @@ public class DashboardFragment extends Fragment {
                         paint.setColor(Color.rgb(0, 113, 138));
                         paint.setTextSize(30f);
 
-                        titlePaint.setTextAlign(Paint.Align.RIGHT);
-                        titlePaint.setTextSize(50);
+                        titlePaint.setTextAlign(Paint.Align.CENTER);
+                        titlePaint.setTextSize(30f);
                         titlePaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
                         Date date = new Date();
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MMM/YYYY");
                         canvas.drawText("Date: " + simpleDateFormat.format(date), 1200 - 20, 640, paint);
 
                         titlePaint.setTextAlign(Paint.Align.LEFT);
-                        titlePaint.setTextSize(100);
+                        titlePaint.setTextSize(30f);
                         titlePaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
                         canvas.drawText("Congratulations for Successfully Completing the course, We hope you throughly enjoyed the course, Best of luck for your Future", 1200 / 2, 270, titlePaint);
 
 
-                        titlePaint.setTextAlign(Paint.Align.LEFT);
-                        titlePaint.setTextSize(50);
+                        titlePaint.setTextAlign(Paint.Align.CENTER);
+                        titlePaint.setTextSize(30f);
                         titlePaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
                         canvas.drawText("Name: " + username, 1200 - 20, 640, paint);
 
-                        titlePaint.setTextAlign(Paint.Align.LEFT);
-                        titlePaint.setTextSize(50);
+                        titlePaint.setTextAlign(Paint.Align.CENTER);
+                        titlePaint.setTextSize(30f);
                         titlePaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
                         canvas.drawText("Email: " + email, 1200 - 20, 640, paint);
 
