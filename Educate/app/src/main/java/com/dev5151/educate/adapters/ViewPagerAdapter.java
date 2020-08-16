@@ -1,7 +1,6 @@
 package com.dev5151.educate.adapters;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -9,7 +8,7 @@ import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.dev5151.educate.fragments.AssignmentFragment;
-import com.dev5151.educate.fragments.ChatFragment;
+import com.dev5151.educate.fragments.VideoFragment;
 import com.dev5151.educate.fragments.DashboardFragment;
 import com.dev5151.educate.fragments.MaterialFragment;
 import com.dev5151.educate.fragments.MembersFragment;
@@ -39,7 +38,7 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
                 return MaterialFragment.getInstance(courseId);
 
             case 3:
-                return ChatFragment.getInstance(courseId);
+                return VideoFragment.getInstance(courseId);
 
             case 4:
                 return MembersFragment.getInstance(courseId);
