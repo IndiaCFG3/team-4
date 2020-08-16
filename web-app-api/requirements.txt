@@ -1,6 +1,5 @@
 Django==3.1
 autopep8
 xhtml2pdf
-reportlab
-
+djangorestframework
 
