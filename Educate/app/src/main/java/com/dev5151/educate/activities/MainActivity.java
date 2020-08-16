@@ -3,7 +3,8 @@ package com.dev5151.educate.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,14 +13,13 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.dev5151.educate.R;
+import com.dev5151.educate.interfaces.OnClickInterface;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.tabs.TabLayout;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 import android.view.View;
-import com.dev5151.educate.R;
 import com.dev5151.educate.fragments.JoinCourseBottomSheetFragment;
 import com.google.android.material.button.MaterialButton;
 
@@ -29,7 +29,9 @@ public class MainActivity extends AppCompatActivity {
     String userIDDD;
     FirebaseUser userrr;
     MaterialButton btnJoinCourse;
-    FirebaseFirestore coursesRef = FirebaseFirestore.getInstance();
+    RecyclerView courseList;
+    public static OnClickInterface onClickInterface;
+    student_courses_adapter mStudent_courses_adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,9 +39,13 @@ public class MainActivity extends AppCompatActivity {
         kAuth = FirebaseAuth.getInstance();
         userIDDD = kAuth.getCurrentUser().getUid();
         userrr = kAuth.getCurrentUser();
-
+        courseList = findViewById(R.id.recyclerView);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         btnJoinCourse = findViewById(R.id.join_course);
+        mStudent_courses_adapter = new student_courses_adapter(this);
+        courseList.setLayoutManager(new LinearLayoutManager(this));
+
+        courseList.setAdapter(mStudent_courses_adapter);
 
         btnJoinCourse.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +55,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        onClickInterface=new OnClickInterface() {
+            @Override
+            public void onClickCourse(String courseId) {
+                Intent intent=new  Intent(getApplicationContext(),CourseActivity.class);
+                intent.putExtra("courseId",courseId);
+                startActivity(intent);
+            }
+        };
 
     }
 
@@ -103,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return true;
-
 
     }
 

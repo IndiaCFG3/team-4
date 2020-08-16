@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
@@ -133,6 +135,10 @@ public class EditProfile extends AppCompatActivity {
     }
 
     private void uploadImageToFirebase(Uri imageUri){
+
+        final ProgressDialog pd = new ProgressDialog(this);
+        pd.setTitle("Uploading...");
+        pd.show();
         final StorageReference fileref=storageReference.child("users/"+nAuth.getCurrentUser().getUid()+"/profile.jpg");
         fileref.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override

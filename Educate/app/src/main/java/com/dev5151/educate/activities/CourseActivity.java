@@ -42,7 +42,7 @@ public class CourseActivity extends AppCompatActivity {
                                 tab.setText("Materials");
                                 break;
                             case 3:
-                                tab.setText("Chats");
+                                tab.setText("Videos");
                                 break;
                             case 4:
                                 tab.setText("Members");

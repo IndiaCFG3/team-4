@@ -15,8 +15,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.dev5151.educate.R;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -42,8 +40,22 @@ public class AuthActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mFirestore = FirebaseFirestore.getInstance();
         if (mAuth.getCurrentUser() != null) {
-            startActivity(new Intent(AuthActivity.this, MainActivity.class));
-            finish();
+            mFirestore.collection("Users").document(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot doc = task.getResult();
+                        if(doc.getBoolean("isStudent")) {
+                            Toast.makeText(AuthActivity.this,"Welcome Student", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(AuthActivity.this,MainActivity.class));
+                        } else {
+                            Toast.makeText(AuthActivity.this,"Welcome Teacher", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(AuthActivity.this,MainActivity2.class));
+                        }
+                        finish();
+                    }
+                }
+            });
         }
         progressDialog=new ProgressDialog(AuthActivity.this);
         progressDialog.setMessage("Signing in");
@@ -134,12 +146,11 @@ public class AuthActivity extends AppCompatActivity {
                                         if(doc.getBoolean("isStudent")) {
                                             Toast.makeText(AuthActivity.this,"Welcome Student", Toast.LENGTH_LONG).show();
                                             startActivity(new Intent(AuthActivity.this,MainActivity.class));
-                                            finish();
                                         } else {
                                             Toast.makeText(AuthActivity.this,"Welcome Teacher", Toast.LENGTH_LONG).show();
                                             startActivity(new Intent(AuthActivity.this,MainActivity2.class));
-                                            finish();
                                         }
+                                        finish();
                                     }
                                 }
                             });
