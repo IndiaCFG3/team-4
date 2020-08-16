@@ -3,10 +3,12 @@ package com.dev5151.educate.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dev5151.educate.R;
@@ -26,6 +28,7 @@ public class AddResources extends AppCompatActivity {
     FirebaseFirestore coursesRef = FirebaseFirestore.getInstance();
     EditText meaddmaterial,meaddquiz,meaddvideos;
     Button addmat,addqui,addvid;
+    TextView mcourseid,mcoursename,mcoursedescription;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +41,38 @@ public class AddResources extends AppCompatActivity {
         addmat=findViewById(R.id.addmaterial);
         addqui=findViewById(R.id.addquiz);
         addvid=findViewById(R.id.addvideos);
+        mcourseid=findViewById(R.id.course_id);
+        mcoursename=findViewById(R.id.course_name);
+        mcoursedescription=findViewById(R.id.course_des);
+        coursesRef.collection("Courses").document(courseId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        String coursename = (String) document.get("name");
+                        String coursedes = (String) document.get("description");
+                        mcoursename.setText(coursename);
+                        mcoursedescription.setText(coursedes);
+
+                    }
+                }
+            }
+         });
+
+        mcourseid.setText(courseId);
+
+        mcourseid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sendIntent= new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT,"enroll to this course:"+courseId);
+                sendIntent.setType("text/plain");
+                Intent shareIntent=Intent.createChooser(sendIntent,null);
+                startActivity(shareIntent);
+            }
+        });
 
         addmat.setOnClickListener(new View.OnClickListener() {
             @Override
