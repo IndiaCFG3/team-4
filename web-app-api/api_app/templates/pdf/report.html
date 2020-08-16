@@ -39,13 +39,16 @@
     <body>
         <div class='wrapper'>
             <div class='header'>
-                <p class='title'>Invoice # </p>
+                <p class='title'>Performance report for {{name}} </p>
             </div>
         <div>
         <div class='details'>
-            Bill to: {{ customer_name }}<br/>
-            Amount:  {{ amount }}<br/>
-            Date: {{ today }}
+            Name: {{ name }}<br/>
+            Student ID:  {{ id }}<br/>
+            email: {{ email }} <br>
+            Contact number: {{ contact_no }} <br>
+            Marks obtained: {{ marks }} <br>
+            List of Course Ids: {{ courses }} <br>
             <hr class='hrItem' />
         </div>
     </div>
