@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 
 import com.dev5151.educate.R;
 
-public class ChatFragment extends Fragment {
+public class VideoFragment extends Fragment {
     private String courseId;
 
-    public static ChatFragment getInstance(String courseId) {
-        ChatFragment fragment = new ChatFragment();
+    public static VideoFragment getInstance(String courseId) {
+        VideoFragment fragment = new VideoFragment();
         Bundle args = new Bundle();
         args.putString("courseId", courseId);
         fragment.setArguments(args);
@@ -33,6 +33,6 @@ public class ChatFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chat, container, false);
+        return inflater.inflate(R.layout.fragment_video, container, false);
     }
 }
