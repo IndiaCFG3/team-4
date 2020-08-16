@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.dev5151.educate.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,6 +27,10 @@ public class DashboardFragment extends Fragment {
     private FirebaseAuth mAuth;
     private Double quizProgress;
     private Double videosProgress;
+    TextView course_name;
+    TextView description;
+    String coursename;
+    String coursedes;
 
     public static DashboardFragment getInstance(String courseId) {
         DashboardFragment fragment = new DashboardFragment();
@@ -50,6 +55,8 @@ public class DashboardFragment extends Fragment {
         mFirestore = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        course_name = view.findViewById(R.id.course_name);
+        description = view.findViewById(R.id.description);
         quiz = view.findViewById(R.id.progressBarQuiz);
         videos = view.findViewById(R.id.progressBar);
         System.out.println(mAuth.getUid() + " # " + courseId);
@@ -69,6 +76,23 @@ public class DashboardFragment extends Fragment {
                 }
             }
         });
+        mFirestore.collection("Courses").document(courseId).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful())
+                        {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists())
+                            {
+                                coursename = (String) document.get("name");
+                                 coursedes = (String) document.get("description");
+                                course_name.setText(coursename);
+                                description.setText(coursedes);
+                            }
+                        }
+                    }
+                });
         return view;
     }
 }
