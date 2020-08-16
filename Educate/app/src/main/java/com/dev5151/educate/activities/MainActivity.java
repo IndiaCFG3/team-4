@@ -11,14 +11,16 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 import com.dev5151.educate.R;
+import com.dev5151.educate.adapters.MemberAdapter;
+import com.dev5151.educate.adapters.student_courses_adapter;
 import com.dev5151.educate.interfaces.OnClickInterface;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.tabs.TabLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,10 +29,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import android.view.View;
 import com.dev5151.educate.fragments.JoinCourseBottomSheetFragment;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -38,18 +40,20 @@ public class MainActivity extends AppCompatActivity {
     String userIDDD;
     FirebaseUser userrr;
     MaterialButton btnJoinCourse;
-    RecyclerView courseList;
+    ListView courseList;
     private FirebaseFirestore db;
     public static OnClickInterface onClickInterface;
     student_courses_adapter mStudent_courses_adapter;
+    ArrayList<String> names;
+    ArrayList<String> desc;
+    ArrayList<String> courses;
+    ArrayList<String> ids;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Intent intent = new Intent(MainActivity.this,CourseActivity.class);
-        intent.putExtra("course","1597560696989");
-        startActivity(intent);
+        db = FirebaseFirestore.getInstance();
 
         kAuth = FirebaseAuth.getInstance();
         userIDDD = kAuth.getCurrentUser().getUid();
@@ -57,10 +61,9 @@ public class MainActivity extends AppCompatActivity {
         courseList = findViewById(R.id.recyclerView);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         btnJoinCourse = findViewById(R.id.join_course);
-        mStudent_courses_adapter = new student_courses_adapter(this);
-        courseList.setLayoutManager(new LinearLayoutManager(this));
-
-    courseList.setAdapter(mStudent_courses_adapter);
+        names = new ArrayList<>();
+        desc = new ArrayList<>();
+        ids = new ArrayList<>();
         db.collection("Users").document(userIDDD).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -68,10 +71,26 @@ public class MainActivity extends AppCompatActivity {
 
                     if(task.isSuccessful())
                     {
-                        ArrayList<String> courses= new ArrayList<>();
+                        courses= new ArrayList<>();
                         DocumentSnapshot doc = task.getResult();
                         courses = (ArrayList<String>) doc.get("courses");
-
+                        db.collection("Courses").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        if(courses.contains(document.getId())) {
+                                            ids.add(document.getId());
+                                            names.add(document.getString("name"));
+                                            desc.add(document.getString("description"));
+                                        }
+                                    }
+                                    mStudent_courses_adapter = new student_courses_adapter(MainActivity.this,names,desc,ids);
+                                    courseList.setAdapter(mStudent_courses_adapter);
+                                    mStudent_courses_adapter.notifyDataSetChanged();
+                                }
+                            }
+                        });
                     }
                     }
                 });
