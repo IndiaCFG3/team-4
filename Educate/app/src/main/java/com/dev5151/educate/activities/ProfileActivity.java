@@ -39,9 +39,7 @@ public class ProfileActivity extends AppCompatActivity {
         mprofileemail=findViewById(R.id.profileemail);
         mprofilename=findViewById(R.id.profilename);
         mprofilenumber=findViewById(R.id.profilenumber);
-
         mprofileimage=findViewById(R.id.profileimage);
-
         mchangeprofile=findViewById(R.id.change_profile);
 
         fauth=FirebaseAuth.getInstance();
