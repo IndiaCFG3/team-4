@@ -3,6 +3,7 @@ package com.dev5151.educate.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -60,6 +61,18 @@ public class AddResources extends AppCompatActivity {
          });
 
         mcourseid.setText(courseId);
+
+        mcourseid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sendIntent= new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT,"enroll to this course:"+courseId);
+                sendIntent.setType("text/plain");
+                Intent shareIntent=Intent.createChooser(sendIntent,null);
+                startActivity(shareIntent);
+            }
+        });
 
         addmat.setOnClickListener(new View.OnClickListener() {
             @Override
