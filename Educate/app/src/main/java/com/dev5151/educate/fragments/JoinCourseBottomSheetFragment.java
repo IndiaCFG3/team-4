@@ -27,6 +27,7 @@ import java.util.Map;
 public class JoinCourseBottomSheetFragment extends BottomSheetDialogFragment {
     FirebaseFirestore coursesRef = FirebaseFirestore.getInstance();
     private List<String> studentList;
+    private List<String> courseList;
     private String uid;
     FirebaseAuth mAuth;
     Button btnJoin;
@@ -72,6 +73,24 @@ public class JoinCourseBottomSheetFragment extends BottomSheetDialogFragment {
                         map.put("video",0);
                         map.put("quiz",0);
                         coursesRef.collection("Progress").document(uid+" # "+courseId).set(map);
+                    } else {
+                        Toast.makeText(getActivity(), "Invalid course Id", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        });
+
+        coursesRef.collection("Users").document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        courseList = (List<String>) document.get("courses");
+                        courseList.add(courseId);
+                        Map<String, Object> hashMap = new HashMap<>();
+                        hashMap.put("courses", courseList);
+                        coursesRef.collection("Users").document(uid).update(hashMap);
                     } else {
                         Toast.makeText(getActivity(), "Invalid course Id", Toast.LENGTH_LONG).show();
                     }
