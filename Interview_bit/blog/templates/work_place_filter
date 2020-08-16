@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1> Rendering html</h1>
+<h2>INTERVIEW EXPERIENCES</h2>
+{% for retail in retailer %}
+{% if {{ retail.work_place }}=={{ workplace }} %}
+    <div>
+<h1>Company name- {{retail.work_place}}  -------------{{ retail.selected }}</h1>
+<h2>post-{{retail.work_post}}</h2>
+<div>
+    <h3>Interview Experience</h3>
+    <p>{{ retail.interview_exp }}</p>
+    <h3>Preparation </h3>
+    <p>{{ retail.preparation }}</p>
+    <p>salary:{{ retail.salary }}</p>
+</div>
+    <p> ALL THE BEST</p>
+</div>
+ {% endif %}
+{% endfor %}
+</body>
+</html>
