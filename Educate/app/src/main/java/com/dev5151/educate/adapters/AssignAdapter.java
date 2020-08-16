@@ -10,19 +10,27 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.dev5151.educate.R;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AssignAdapter extends ArrayAdapter<Integer> {
 
     private ArrayList<String> links;
     private String title;
+    private String courseId;
+    private String uid;
+    private FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
 
-    public AssignAdapter(Context context, ArrayList<String> links, String title) {
+    public AssignAdapter(Context context, ArrayList<String> links, String title, String courseId, String uid) {
         super(context, R.layout.admin_list_item);
         this.links = links;
         this.title = title;
+        this.courseId = courseId;
+        this.uid = uid;
     }
 
     @Override
@@ -41,6 +49,16 @@ public class AssignAdapter extends ArrayAdapter<Integer> {
         usernameText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(title.equals("Video")) {
+                    Map<String,Object> map = new HashMap<>();
+                    map.put("video",((float)(position+1)/links.size()));
+                    mFirestore.collection("Progress").document(uid+" # "+courseId).update(map);
+                }
+                if(title.equals("Assignment")) {
+                    Map<String,Object> map = new HashMap<>();
+                    map.put("quiz",(((float)(position+1)/links.size())));
+                    mFirestore.collection("Progress").document(uid+" # "+courseId).update(map);
+                }
                 Uri uri = Uri.parse(links.get(position)); // missing 'http://' will cause crashed
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 getContext().startActivity(intent);

@@ -13,6 +13,7 @@ import com.dev5151.educate.R;
 import com.dev5151.educate.adapters.AssignAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -24,6 +25,7 @@ public class AssignmentFragment extends Fragment {
     private ListView listView;
     private ArrayList<String> links;
     private FirebaseFirestore mFirestore;
+    private FirebaseAuth mAuth;
 
     public static AssignmentFragment getInstance(String courseId) {
         AssignmentFragment fragment = new AssignmentFragment();
@@ -46,6 +48,7 @@ public class AssignmentFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mFirestore = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         View view = inflater.inflate(R.layout.fragment_assignment, container, false);
         listView = view.findViewById(R.id.listAss);
         links = new ArrayList<>();
@@ -55,7 +58,7 @@ public class AssignmentFragment extends Fragment {
                 if (task.isSuccessful()) {
                     DocumentSnapshot doc = task.getResult();
                     links = (ArrayList<String>) doc.get("quiz");
-                    AssignAdapter assignAdapter = new AssignAdapter(getContext(),links,"Assignment");
+                    AssignAdapter assignAdapter = new AssignAdapter(getContext(),links,"Assignment",courseId,mAuth.getUid());
                     listView.setAdapter(assignAdapter);
                     assignAdapter.notifyDataSetChanged();
                 }
