@@ -1,0 +1,42 @@
+<html>
+	<head>
+	<title>Class Report</title>
+	<style>
+			table {
+			  font-family: arial, sans-serif;
+			  border-collapse: collapse;
+			  width: 100%;
+			}
+			
+			td {
+			  border: 1px solid #dddddd;
+			  text-align: left;
+			  padding: 8px;
+			}
+			th {
+				background-color: coral
+			}
+			tr:nth-child(even) {
+			  background-color: #dddddd;
+			}
+			</style>
+	<table>
+		<tr>
+			<th align="left" scope = "col">Student ID</th>
+			<th align="left" scope = "col">Student Name</th>
+			<th align="left" scope = "col">Student Email</th>
+			<th align="left" scope = "col">Marks obtained</th>
+			<th align="left" scope = "col">Courses taken</th>
+		</tr>
+
+		{% for student in students %}
+			<tr>	
+				<td>{{student.id}}</td>
+				<td> {{student.name}}</td>
+				<td>{{student.email}}</td>
+				<td>{{student.marks}}</td>
+				<td>{{student.courses}}</td>
+			</tr>
+		{% endfor %}
+	</table>
+</html>

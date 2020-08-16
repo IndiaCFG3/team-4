@@ -1,53 +1,91 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-    <head>
-        <title>Title</title>
-        <style type="text/css">
-            body {
-                font-weight: 200;
-                font-size: 14px;
-            }
-            .header {
-                font-size: 20px;
-                font-weight: 100;
-                text-align: center;
-                color: #007cae;
-            }
-            .title {
-                font-size: 22px;
-                font-weight: 100;
-               /* text-align: right;*/
-               padding: 10px 20px 0px 20px;  
-            }
-            .title span {
-                color: #007cae;
-            }
-            .details {
-                padding: 10px 20px 0px 20px;
-                text-align: left !important;
-                /*margin-left: 40%;*/
-            }
-            .hrItem {
-                border: none;
-                height: 1px;
-                /* Set the hr color */
-                color: #333; /* old IE */
-                background-color: #fff; /* Modern Browsers */
-            }
-        </style>
-    </head>
-    <body>
-        <div class='wrapper'>
-            <div class='header'>
-                <p class='title'>Invoice # </p>
+
+<head>
+    <title>Title</title>
+    <style type="text/css">
+        body {
+            background-color:lightgray;
+            font-family: cursive
+            font-weight: 200;
+            font-size: 14px;
+        }
+        .wrapper{
+           
+            padding:20px;
+           
+            block-size: auto;
+        }
+
+        .header {
+            font-family: sans-serif;
+            font-size: 30px;
+            font-weight: 100;
+            text-align: center;
+            color:black;
+        }
+
+       
+
+        .title {
+            
+             font-size : 40px;
+            font-weight: 100;
+            /* text-align: right;*/
+            padding: 10px 20px 0px 20px;
+        }
+
+        .title span {
+            color:black;
+        }
+
+        .details {
+            padding: 10px 20px 0px 20px;
+            text-align: left !important;
+            /*margin-left: 40%;*/
+        }
+
+        .hrItem {
+            border: none;
+            height: 1px;
+            /* Set the hr color */
+            color: #333;
+            /* old IE */
+            background-color: #fff;
+            /* Modern Browsers */
+        }
+        .details{
+            padding-left: 300px;
+            font-size:large;
+            font-family: cursive;
+        }
+    </style>
+</head>
+
+<body>
+
+     <div class='wrapper'>
+        <div class='header'>
+            <div id="im">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRXcRL5RdR5SHnmwSQgvmuTZCTHyY4jyPHXag&usqp=CAU"
+                    alt="TISS Logo">
             </div>
-        <div>
-        <div class='details'>
-            Bill to: {{ customer_name }}<br/>
-            Amount:  {{ amount }}<br/>
-            Date: {{ today }}
-            <hr class='hrItem' />
+           <u><p class='title'>Performance report for {{name}} </p></u> 
         </div>
+    
+
+    <div class='details'>
+      <b> Name</b>: {{ name }}   <br>
+        <b>Student ID: </b>{{ id }}<br />
+        <b>email:</b> {{ email }} <br>
+        <b>Contact number:</b> {{ contact_no }} <br>
+        <b>Marks obtained:</b> {{ marks }} <br>
+        <b>List of Course Ids:</b> {{ courses }} <br>
+    
+        
     </div>
-    </body>
+    </div>
+  
+</body>
+
 </html>

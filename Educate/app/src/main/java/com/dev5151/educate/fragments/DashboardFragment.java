@@ -1,8 +1,6 @@
 package com.dev5151.educate.fragments;
 
 import android.Manifest;
-import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,8 +13,9 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+
 import androidx.annotation.RequiresApi;
-import androidx.core.content.ContextCompat;
+
 import androidx.fragment.app.Fragment;
 
 import android.os.Environment;
@@ -25,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
+import android.widget.ProgressBar;
 
 import com.dev5151.educate.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -46,6 +46,14 @@ public class DashboardFragment extends Fragment {
     FirebaseFirestore userRef = FirebaseFirestore.getInstance();
     Button generateCertificate;
 
+    private FirebaseFirestore mFirestore;
+    private ProgressBar quiz;
+    private ProgressBar videos;
+    private FirebaseAuth mAuth;
+    private Double quizProgress;
+    private Double videosProgress;
+
+
     public static DashboardFragment getInstance(String courseId) {
         DashboardFragment fragment = new DashboardFragment();
         Bundle args = new Bundle();
@@ -66,6 +74,7 @@ public class DashboardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
         generateCertificate = view.findViewById(R.id.generate_certificate);
         generateCertificate.setOnClickListener(new View.OnClickListener() {
@@ -73,13 +82,35 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+                    requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
                     return;
                 } else {
                     createPdf(courseId);
                 }
             }
         });
+        mFirestore = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        quiz = view.findViewById(R.id.progressBarQuiz);
+        videos = view.findViewById(R.id.progressBar);
+        System.out.println(mAuth.getUid() + " # " + courseId);
+        mFirestore.collection("Progress").document(mAuth.getUid() + " # " + courseId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot doc = task.getResult();
+                    if (doc != null) {
+                        quizProgress = doc.getDouble("quiz");
+                        videosProgress = doc.getDouble("video");
+                        System.out.println(quizProgress);
+                        System.out.println(videosProgress);
+                        quiz.setProgress((int) (quizProgress * 100));
+                        videos.setProgress((int) (videosProgress * 100));
+                    }
+                }
+            }
+        });
+
         return view;
     }
 
@@ -159,9 +190,9 @@ public class DashboardFragment extends Fragment {
                         pdfDocument.finishPage(page);
 
                         String baseDir = Environment.getExternalStorageDirectory().getAbsolutePath();
-                        String fileName="Certificate_" + courseId;
+                        String fileName = "Certificate_" + courseId;
                         try {
-                            File file=new File(baseDir+File.separator+fileName);
+                            File file = new File(baseDir + File.separator + fileName);
                             pdfDocument.writeTo(new FileOutputStream(file));
                         } catch (IOException e) {
                             e.printStackTrace();

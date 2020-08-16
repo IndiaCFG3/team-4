@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +40,8 @@ public class MembersFragment extends Fragment {
     private ArrayList<String> students;
     private TextView teacherText;
     private TextView assistantText;
+    private LinearLayout linearLayout;
+    private ProgressBar progressBar;
     private ListView studentText;
 
     public static MembersFragment getInstance(String courseId) {
@@ -62,6 +66,7 @@ public class MembersFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_members, container, false);
         initView(view);
+        linearLayout.setVisibility(View.GONE);
         // Inflate the layout for this fragment
         mFirestore = FirebaseFirestore.getInstance();
         mFirestore.collection("Courses").document(courseId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -89,6 +94,8 @@ public class MembersFragment extends Fragment {
                                 MemberAdapter memberAdapter = new MemberAdapter(getContext(),students);
                                 studentText.setAdapter(memberAdapter);
                                 memberAdapter.notifyDataSetChanged();
+                                progressBar.setVisibility(View.GONE);
+                                linearLayout.setVisibility(View.VISIBLE);
                             }
                         }
                     });
@@ -102,6 +109,8 @@ public class MembersFragment extends Fragment {
     private void initView(View view) {
         teacherText = view.findViewById(R.id.teacher);
         studentText = view.findViewById(R.id.listView);
+        progressBar = view.findViewById(R.id.progress);
+        linearLayout = view.findViewById(R.id.done);
         studentsID = new ArrayList<>();
         students = new ArrayList<>();
     }

@@ -14,6 +14,7 @@ import com.dev5151.educate.R;
 import com.dev5151.educate.adapters.AssignAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -26,6 +27,7 @@ public class MaterialFragment extends Fragment {
     private ListView listView;
     private ArrayList<String> links;
     private FirebaseFirestore mFirestore;
+    private FirebaseAuth mAuth;
 
     public static MaterialFragment getInstance(String courseId) {
         MaterialFragment fragment = new MaterialFragment();
@@ -47,6 +49,7 @@ public class MaterialFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mFirestore = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         View view =  inflater.inflate(R.layout.fragment_material, container, false);
         listView = view.findViewById(R.id.listAss);
         links = new ArrayList<>();
@@ -56,7 +59,7 @@ public class MaterialFragment extends Fragment {
                 if (task.isSuccessful()) {
                     DocumentSnapshot doc = task.getResult();
                     links = (ArrayList<String>) doc.get("material");
-                    AssignAdapter assignAdapter = new AssignAdapter(getContext(),links,"Material");
+                    AssignAdapter assignAdapter = new AssignAdapter(getContext(),links,"Material",courseId,mAuth.getUid());
                     listView.setAdapter(assignAdapter);
                     assignAdapter.notifyDataSetChanged();
                 }
