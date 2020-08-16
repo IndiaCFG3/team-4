@@ -21,7 +21,6 @@
         android:id="@+id/join_course"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
         android:drawablePadding="16dp"
         android:text="Join Course"
         app:cornerRadius="10dp"
