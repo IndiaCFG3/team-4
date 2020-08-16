@@ -2,17 +2,30 @@ package com.dev5151.educate.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.dev5151.educate.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class DashboardFragment extends Fragment {
 
     private String courseId;
+    private FirebaseFirestore mFirestore;
+    private ProgressBar quiz;
+    private ProgressBar videos;
+    private FirebaseAuth mAuth;
+    private Double quizProgress;
+    private Double videosProgress;
 
     public static DashboardFragment getInstance(String courseId) {
         DashboardFragment fragment = new DashboardFragment();
@@ -26,7 +39,7 @@ public class DashboardFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            courseId = getArguments().getString("month");
+            courseId = getArguments().getString("courseId");
         }
     }
 
@@ -34,6 +47,28 @@ public class DashboardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dashboard, container, false);
+        mFirestore = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        quiz = view.findViewById(R.id.progressBarQuiz);
+        videos = view.findViewById(R.id.progressBar);
+        System.out.println(mAuth.getUid() + " # " + courseId);
+        mFirestore.collection("Progress").document(mAuth.getUid() + " # " + courseId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()) {
+                    DocumentSnapshot doc = task.getResult();
+                    if(doc!=null) {
+                        quizProgress = doc.getDouble("quiz");
+                        videosProgress = doc.getDouble("video");
+                        System.out.println(quizProgress);
+                        System.out.println(videosProgress);
+                        quiz.setProgress((int)(quizProgress*100));
+                        videos.setProgress((int)(videosProgress*100));
+                    }
+                }
+            }
+        });
+        return view;
     }
 }
