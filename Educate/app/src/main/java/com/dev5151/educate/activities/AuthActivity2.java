@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -105,6 +106,7 @@ public class AuthActivity2 extends AppCompatActivity {
                             user.put("phone",sphone);
                             user.put("uuid",userID);
                             user.put("isStudent",radioInt==2131165335);
+                            user.put("courses",new ArrayList<String>());
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
