@@ -1,6 +1,8 @@
 package com.dev5151.educate.fragments;
 
 import android.Manifest;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -36,6 +39,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
@@ -106,6 +110,9 @@ public class DashboardFragment extends Fragment {
                         System.out.println(videosProgress);
                         quiz.setProgress((int) (quizProgress * 100));
                         videos.setProgress((int) (videosProgress * 100));
+                        if(quizProgress+videosProgress!=2.0) {
+                            generateCertificate.setVisibility(View.GONE);
+                        }
                     }
                 }
             }
@@ -126,9 +133,6 @@ public class DashboardFragment extends Fragment {
                 }
                 return;
             }
-
-            // other 'switch' lines to check for other
-            // permissions this app might request
         }
     }
 
@@ -191,15 +195,19 @@ public class DashboardFragment extends Fragment {
                         pdfDocument.finishPage(page);
 
                         String baseDir = Environment.getExternalStorageDirectory().getAbsolutePath();
-                        String fileName = "Certificate_" + courseId;
+                        System.out.println(baseDir);
+                        String fileName = "Certificate_" + courseId + ".pdf";
                         try {
                             File file = new File(baseDir + File.separator + fileName);
+                            if(file.exists()) {
+                                file.mkdirs();
+                                System.out.println("Exits");
+                            }
                             pdfDocument.writeTo(new FileOutputStream(file));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                         pdfDocument.close();
-
                     }
                 }
             }
