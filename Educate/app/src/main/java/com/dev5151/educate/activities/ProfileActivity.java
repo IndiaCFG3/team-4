@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.dev5151.educate.EditProfile;
 import com.dev5151.educate.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,7 +45,7 @@ public class ProfileActivity extends AppCompatActivity {
         mStore=FirebaseFirestore.getInstance();
         storageReference= FirebaseStorage.getInstance().getReference();
 
-        StorageReference profileRef=storageReference.child("Users/"+fauth.getCurrentUser().getUid()+"/profile.jpg");
+        StorageReference profileRef=storageReference.child("users/"+fauth.getCurrentUser().getUid()+"/profile.jpg");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
