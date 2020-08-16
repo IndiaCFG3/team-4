@@ -157,6 +157,7 @@ public class AuthActivity2 extends AppCompatActivity {
         }
 
         if(!(cpw.equals(pw))) {
+            progressDialog.dismiss();
             conPassword.setError("Re enter password!");
             valid=false;
         } else {
