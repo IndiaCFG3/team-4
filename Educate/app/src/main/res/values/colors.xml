@@ -2,5 +2,11 @@
 <resources>
     <color name="colorPrimary">#00c853</color>
     <color name="colorPrimaryDark">#1b5e20</color>
+<<<<<<< HEAD
     <color name="colorAccent">#03DAC5</color>
+=======
+    <color name="colorAccent">#1b5e20</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+>>>>>>> 064a5e0c4a7eced62a45acc189e1960cfd5fe90b
 </resources>

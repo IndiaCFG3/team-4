@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.dev5151.educate.R;
+import com.dev5151.educate.interfaces.OnClickInterface;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.tabs.TabLayout;
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     String userIDDD;
     FirebaseUser userrr;
     MaterialButton btnJoinCourse;
-    FirebaseFirestore coursesRef = FirebaseFirestore.getInstance();
+    public static OnClickInterface onClickInterface;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +50,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        onClickInterface=new OnClickInterface() {
+            @Override
+            public void onClickCourse(String courseId) {
+                Intent intent=new  Intent(getApplicationContext(),CourseActivity.class);
+                intent.putExtra("courseId",courseId);
+                startActivity(intent);
+            }
+        };
 
     }
 
@@ -103,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return true;
-
 
     }
 
