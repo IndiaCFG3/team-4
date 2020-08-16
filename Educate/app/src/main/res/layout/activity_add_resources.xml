@@ -4,41 +4,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#FFFF99"
     android:padding="30dp">
 
     <EditText
         android:id="@+id/eaddmaterial"
         android:layout_marginTop="50dp"
+        android:padding="10dp"
         android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/custom_edit_bg"
         android:hint="Add course Material"/>
+
     <Button
         android:id="@+id/addmaterial"
         android:layout_marginBottom="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:background="#000"
+        android:gravity="center"
         android:layout_gravity="center"
         android:text="ADD"/>
+
     <EditText
         android:id="@+id/eaddquiz"
         android:layout_marginBottom="20dp"
+        android:background="@drawable/custom_edit_bg"
         android:layout_width="match_parent"
+        android:padding="10dp"
         android:layout_height="wrap_content"
-        android:hint="Add Quizz"/>
+        android:hint="Add Quiz"/>
+
     <Button
         android:id="@+id/addquiz"
         android:layout_marginBottom="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:layout_gravity="center"
+        android:background="#000"
         android:text="ADD"/>
 
     <EditText
         android:id="@+id/eaddvideos"
         android:layout_marginBottom="20dp"
+        android:padding="10dp"
+        android:background="@drawable/custom_edit_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Add Video Link"/>
@@ -46,7 +58,8 @@
         android:id="@+id/addvideos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:background="#000"
+        android:gravity="center"
         android:layout_gravity="center"
         android:text="ADD"/>
 

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -33,11 +34,11 @@ public class AuthActivity2 extends AppCompatActivity {
     private ProgressDialog progressDialog;
     FirebaseFirestore fStore;
     String userID;
-    int radioInt;
+    boolean radioInt;
     EditText mphone,musername;
     EditText email,password,conPassword;
     Button register,link_to_log;
-    RadioGroup radioGroup;
+    CheckBox radioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,7 @@ public class AuthActivity2 extends AppCompatActivity {
         progressDialog=new ProgressDialog(AuthActivity2.this);
         progressDialog.setMessage("Creating");
 
-        radioGroup = findViewById(R.id.radioGroup);
+        radioGroup = findViewById(R.id.radio);
 
         email=findViewById(R.id.register_email);
         password=findViewById(R.id.register_password);
@@ -90,7 +91,7 @@ public class AuthActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progressDialog.show();
-                radioInt = radioGroup.getCheckedRadioButtonId();
+                radioInt = (!radioGroup.isChecked());
                 signup();
             }
         });
@@ -120,7 +121,7 @@ public class AuthActivity2 extends AppCompatActivity {
                             user.put("email",em);
                             user.put("phone",sphone);
                             user.put("uuid",userID);
-                            user.put("isStudent",radioInt==2131165335);
+                            user.put("isStudent",radioInt);
                             user.put("courses",new ArrayList<String>());
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -128,7 +129,7 @@ public class AuthActivity2 extends AppCompatActivity {
                                     //Log.d(TAG,"user profile is created for " + userID );
                                 }
                             });
-                            if(radioInt==2131165335){
+                            if(radioInt){
                                 Toast.makeText(AuthActivity2.this,"Welcome Student", Toast.LENGTH_LONG).show();
                                 startActivity(new Intent(AuthActivity2.this,MainActivity.class));
                                 finish();

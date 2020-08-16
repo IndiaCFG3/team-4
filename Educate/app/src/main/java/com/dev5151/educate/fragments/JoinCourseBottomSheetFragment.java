@@ -68,6 +68,10 @@ public class JoinCourseBottomSheetFragment extends BottomSheetDialogFragment {
                         Map<String, Object> hashMap = new HashMap<>();
                         hashMap.put("students", studentList);
                         coursesRef.collection("Courses").document(courseId).update(hashMap);
+                        Map<String,Object> map = new HashMap<>();
+                        map.put("video",0);
+                        map.put("quiz",0);
+                        coursesRef.collection("Progress").document(uid+" # "+courseId).set(map);
                     } else {
                         Toast.makeText(getActivity(), "Invalid course Id", Toast.LENGTH_LONG).show();
                     }

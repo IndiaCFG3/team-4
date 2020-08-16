@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dev5151.educate.R;
+import com.dev5151.educate.activities.AddResources;
 import com.dev5151.educate.activities.CourseActivity;
 import com.dev5151.educate.activities.MainActivity;
 
@@ -45,9 +46,7 @@ public class teacher_course_adapter extends ArrayAdapter<Integer> {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                Intent intent = new Intent(getContext(), CourseActivity.class);
+                Intent intent = new Intent(getContext(), AddResources.class);
                 intent.putExtra("course",ids.get(position));
                 getContext().startActivity(intent);
             }

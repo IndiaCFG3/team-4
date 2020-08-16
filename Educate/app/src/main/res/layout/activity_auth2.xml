@@ -88,24 +88,12 @@
             android:layout_height="wrap_content"
             android:text="Select:"
             android:textSize="20dp"/>
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:id="@+id/radioGroup">
-            <RadioButton
-                android:id="@+id/radio_one"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Teacher" />
-            <RadioButton
-                android:id="@+id/radio_two"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Student"
-                />
-        </RadioGroup>
 
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Teacher"
+            android:id="@+id/radio"/>
 
         <Button
             android:padding="10dp"
