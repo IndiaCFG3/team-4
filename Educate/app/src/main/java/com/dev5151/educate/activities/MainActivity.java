@@ -18,15 +18,18 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import android.view.View;
+import com.dev5151.educate.R;
+import com.dev5151.educate.fragments.JoinCourseBottomSheetFragment;
+import com.google.android.material.button.MaterialButton;
+
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth kAuth;
     String userIDDD;
     FirebaseUser userrr;
-
+    MaterialButton btnJoinCourse;
     FirebaseFirestore coursesRef = FirebaseFirestore.getInstance();
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,9 +39,19 @@ public class MainActivity extends AppCompatActivity {
         userrr = kAuth.getCurrentUser();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        btnJoinCourse = findViewById(R.id.join_course);
+
+        btnJoinCourse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                JoinCourseBottomSheetFragment joinCourseBottomSheetFragment = new JoinCourseBottomSheetFragment();
+                joinCourseBottomSheetFragment.show(getSupportFragmentManager(), joinCourseBottomSheetFragment.getTag());
+            }
+        });
 
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -90,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return true;
+
+
     }
 
 }
