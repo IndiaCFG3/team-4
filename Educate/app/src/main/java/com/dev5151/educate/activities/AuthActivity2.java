@@ -113,8 +113,15 @@ public class AuthActivity2 extends AppCompatActivity {
                                     //Log.d(TAG,"user profile is created for " + userID );
                                 }
                             });
-                            startActivity(new Intent(AuthActivity2.this,AuthActivity.class));
-                            finish();
+                            if(radioInt==2131165335){
+                                Toast.makeText(AuthActivity2.this,"Welcome Student", Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(AuthActivity2.this,MainActivity.class));
+                                finish();
+                            } else {
+                                Toast.makeText(AuthActivity2.this,"Welcome Teacher", Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(AuthActivity2.this,MainActivity2.class));
+                                finish();
+                            }
                         } if(!task.isSuccessful()) {
                             progressDialog.dismiss();
                             Toast.makeText(AuthActivity2.this,"Registration Failed",Toast.LENGTH_SHORT).show();

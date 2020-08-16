@@ -137,7 +137,7 @@ public class AuthActivity extends AppCompatActivity {
                                             finish();
                                         } else {
                                             Toast.makeText(AuthActivity.this,"Welcome Teacher", Toast.LENGTH_LONG).show();
-                                            startActivity(new Intent(AuthActivity.this,MainActivity.class));
+                                            startActivity(new Intent(AuthActivity.this,MainActivity2.class));
                                             finish();
                                         }
                                     }

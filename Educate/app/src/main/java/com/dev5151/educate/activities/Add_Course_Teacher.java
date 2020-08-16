@@ -36,8 +36,7 @@ public class Add_Course_Teacher extends AppCompatActivity {
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                String teacher = mAuth.getCurrentUser().getUid();
-                String teacher = "uuid";
+                String teacher = mAuth.getCurrentUser().getUid();
                 long time = System.currentTimeMillis();
                 String id = Long.toString(time);
                 nameStr = name.getText().toString();
