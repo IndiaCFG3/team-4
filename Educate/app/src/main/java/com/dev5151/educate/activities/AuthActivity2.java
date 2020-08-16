@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +32,7 @@ public class AuthActivity2 extends AppCompatActivity {
     private ProgressDialog progressDialog;
     FirebaseFirestore fStore;
     String userID;
+    int radioInt;
     EditText mphone,musername;
     EditText email,password,conPassword;
     Button register,link_to_log;
@@ -49,6 +51,7 @@ public class AuthActivity2 extends AppCompatActivity {
         progressDialog=new ProgressDialog(AuthActivity2.this);
         progressDialog.setMessage("Creating");
 
+        radioGroup = findViewById(R.id.radioGroup);
 
         email=findViewById(R.id.register_email);
         password=findViewById(R.id.register_password);
@@ -72,7 +75,7 @@ public class AuthActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progressDialog.show();
-                int radioId = radioGroup.getCheckedRadioButtonId();
+                radioInt = radioGroup.getCheckedRadioButtonId();
                 signup();
             }
         });
@@ -96,19 +99,29 @@ public class AuthActivity2 extends AppCompatActivity {
                             progressDialog.dismiss();
                             Toast.makeText(AuthActivity2.this,"Registration Successful",Toast.LENGTH_SHORT).show();
                             userID=mAuth.getCurrentUser().getUid();
-                            DocumentReference documentReference=fStore.collection("users").document(userID);
+                            DocumentReference documentReference=fStore.collection("Users").document(userID);
                             Map<String,Object> user=new HashMap<>();
                             user.put("uname",susername);
-                            user.put("emaill",em);
-                            user.put("phoneee",sphone);
+                            user.put("email",em);
+                            user.put("phone",sphone);
+                            user.put("uuid",userID);
+                            user.put("isStudent",radioInt==2131165335);
+                            user.put("courses",new ArrayList<String>());
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     //Log.d(TAG,"user profile is created for " + userID );
                                 }
                             });
-                            startActivity(new Intent(AuthActivity2.this,AuthActivity.class));
-                            finish();
+                            if(radioInt==2131165335){
+                                Toast.makeText(AuthActivity2.this,"Welcome Student", Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(AuthActivity2.this,MainActivity.class));
+                                finish();
+                            } else {
+                                Toast.makeText(AuthActivity2.this,"Welcome Teacher", Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(AuthActivity2.this,MainActivity2.class));
+                                finish();
+                            }
                         } if(!task.isSuccessful()) {
                             progressDialog.dismiss();
                             Toast.makeText(AuthActivity2.this,"Registration Failed",Toast.LENGTH_SHORT).show();
