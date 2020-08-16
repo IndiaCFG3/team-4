@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".activities.MainActivity2"/>
+        <activity android:name=".EditProfile"></activity>
+        <activity android:name=".activities.ProfileActivity" />
+        <activity android:name=".activities.MainActivity2" />
         <activity android:name=".activities.AuthActivity2" />
         <activity android:name=".activities.Add_Course_Teacher" />
         <activity android:name=".activities.CourseActivity" />
@@ -18,10 +19,11 @@
         <activity android:name=".activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.MainActivity"/>
+        <activity android:name=".activities.MainActivity" />
     </application>
 
 </manifest>
