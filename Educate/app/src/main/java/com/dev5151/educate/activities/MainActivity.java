@@ -5,23 +5,48 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
+import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
+
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.dev5151.educate.R;
 import com.dev5151.educate.interfaces.OnClickInterface;
+
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
 import android.view.View;
+
 import com.dev5151.educate.fragments.JoinCourseBottomSheetFragment;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -32,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView courseList;
     public static OnClickInterface onClickInterface;
     student_courses_adapter mStudent_courses_adapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,19 +74,22 @@ public class MainActivity extends AppCompatActivity {
 
         courseList.setAdapter(mStudent_courses_adapter);
 
+
         btnJoinCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 JoinCourseBottomSheetFragment joinCourseBottomSheetFragment = new JoinCourseBottomSheetFragment();
                 joinCourseBottomSheetFragment.show(getSupportFragmentManager(), joinCourseBottomSheetFragment.getTag());
+
             }
         });
 
-        onClickInterface=new OnClickInterface() {
+
+        onClickInterface = new OnClickInterface() {
             @Override
             public void onClickCourse(String courseId) {
-                Intent intent=new  Intent(getApplicationContext(),CourseActivity.class);
-                intent.putExtra("courseId",courseId);
+                Intent intent = new Intent(getApplicationContext(), CourseActivity.class);
+                intent.putExtra("courseId", courseId);
                 startActivity(intent);
             }
         };
@@ -119,5 +149,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
 
     }
+
 
 }
