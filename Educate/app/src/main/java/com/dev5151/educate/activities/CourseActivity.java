@@ -4,14 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.dev5151.educate.R;
 import com.dev5151.educate.adapters.ViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-
-import java.util.List;
 
 public class CourseActivity extends AppCompatActivity {
 
@@ -23,7 +22,8 @@ public class CourseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
-
+        Intent intent = getIntent();
+        courseId = intent.getStringExtra("course");
         initViews();
 
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), getLifecycle(), courseId));
@@ -55,6 +55,5 @@ public class CourseActivity extends AppCompatActivity {
     private void initViews() {
         viewPager = findViewById(R.id.viewpager);
         tabLayout = findViewById(R.id.tabs);
-        courseId = "1234";
     }
 }

@@ -12,5 +12,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = new Intent(MainActivity.this,CourseActivity.class);
+        intent.putExtra("course","1597560696989");
+        startActivity(intent);
     }
 }
