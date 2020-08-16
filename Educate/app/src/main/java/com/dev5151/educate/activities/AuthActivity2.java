@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -45,8 +46,22 @@ public class AuthActivity2 extends AppCompatActivity {
         mAuth=FirebaseAuth.getInstance();
         fStore=FirebaseFirestore.getInstance();
         if (mAuth.getCurrentUser() != null) {
-            startActivity(new Intent(AuthActivity2.this, MainActivity.class));
-            finish();
+            fStore.collection("Users").document(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot doc = task.getResult();
+                        if(doc.getBoolean("isStudent")) {
+                            Toast.makeText(AuthActivity2.this,"Welcome Student", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(AuthActivity2.this,MainActivity.class));
+                        } else {
+                            Toast.makeText(AuthActivity2.this,"Welcome Teacher", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(AuthActivity2.this,MainActivity2.class));
+                        }
+                        finish();
+                    }
+                }
+            });
         }
         progressDialog=new ProgressDialog(AuthActivity2.this);
         progressDialog.setMessage("Creating");
