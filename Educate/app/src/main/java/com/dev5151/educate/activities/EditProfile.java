@@ -95,11 +95,11 @@ public class EditProfile extends AppCompatActivity {
                 user.updateEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        DocumentReference docRef=nStore.collection("users").document(user.getUid());
+                        DocumentReference docRef=nStore.collection("Users").document(user.getUid());
                         Map<String,Object> edited=new HashMap<>();
-                        edited.put("emaill",email);
+                        edited.put("email",email);
                         edited.put("uname",editusername.getText().toString());
-                        edited.put("phoneee",editphone.getText().toString());
+                        edited.put("phone",editphone.getText().toString());
                         docRef.update(edited).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {

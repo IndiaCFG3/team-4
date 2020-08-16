@@ -46,7 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
         mStore=FirebaseFirestore.getInstance();
         storageReference= FirebaseStorage.getInstance().getReference();
 
-        StorageReference profileRef=storageReference.child("users/"+fauth.getCurrentUser().getUid()+"/profile.jpg");
+        StorageReference profileRef=storageReference.child("Users/"+fauth.getCurrentUser().getUid()+"/profile.jpg");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -56,13 +56,13 @@ public class ProfileActivity extends AppCompatActivity {
 
         userIDD=fauth.getCurrentUser().getUid();
 
-        DocumentReference documentReference=mStore.collection("users").document(userIDD);
+        DocumentReference documentReference=mStore.collection("Users").document(userIDD);
         documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                mprofilenumber.setText(value.getString("phoneee"));
+                mprofilenumber.setText(value.getString("phone"));
                 mprofilename.setText(value.getString("uname"));
-                mprofileemail.setText(value.getString("emaill"));
+                mprofileemail.setText(value.getString("email"));
             }
         });
 
