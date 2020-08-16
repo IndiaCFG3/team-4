@@ -24,7 +24,6 @@
             android:id="@+id/join_course_code_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberSigned"
             android:maxHeight="60dp"
             android:maxLines="1"
             android:singleLine="true"

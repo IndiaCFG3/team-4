@@ -41,7 +41,8 @@ public class JoinCourseBottomSheetFragment extends BottomSheetDialogFragment {
         btnJoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                validateCode(edtJoinCourse.getEditText().toString());
+                String courseId=edtJoinCourse.getEditText().getText().toString();
+                validateCode(courseId);
             }
         });
 
@@ -56,8 +57,7 @@ public class JoinCourseBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     private void validateCode(final String courseId) {
-        DocumentReference courseIdReference = coursesRef.collection("Courses").document(courseId);
-        courseIdReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        coursesRef.collection("Courses").document(courseId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
