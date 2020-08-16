@@ -1,5 +1,15 @@
 package com.dev5151.educate.fragments;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
+import android.graphics.pdf.PdfDocument;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,10 +34,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Objects;
+
 public class DashboardFragment extends Fragment {
 
     private String courseId;
-    private FirebaseFirestore mFirestore;
+    private FirebaseFirestore mFirestore,userRef;
     private ProgressBar quiz;
     private ProgressBar videos;
     private FirebaseAuth mAuth;
@@ -36,6 +53,7 @@ public class DashboardFragment extends Fragment {
     TextView course_name;
     TextView description;
     String coursename;
+    Button generateCertificate;
     String coursedes;
 
 
@@ -75,8 +93,9 @@ public class DashboardFragment extends Fragment {
             }
         });
         mFirestore = FirebaseFirestore.getInstance();
+        userRef = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
-        View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+//        View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
         course_name = view.findViewById(R.id.course_name);
         description = view.findViewById(R.id.description);
         quiz = view.findViewById(R.id.progressBarQuiz);
