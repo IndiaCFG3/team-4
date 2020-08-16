@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="190dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,30 +8,71 @@
     android:clickable="true"
     app:cardCornerRadius="4dp"
     android:foreground="?android:attr/selectableItemBackground"
-    android:id="@+id/cardview_id">
+    android:id="@+id/cardview_id"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true"
 
-        <ImageView
-            android:id="@+id/recipe_img_id"
+        >
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorPrimary"/>
-        <TextView
-            android:id="@+id/recipe_id"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="Name"
-            android:textSize="13sp"
-            android:textColor="#2d2d2d"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+            <ImageView
+                android:id="@+id/course_logo"
+                android:padding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_launcher_background"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="20dp"
+                    android:text="courseName"
+                    android:textStyle="bold" />
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/organisation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
 
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="#organisation"
+                    />
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="description...."
+                    android:layout_marginBottom="20dp"
+                    />
 
+<!--                <TextView-->
+<!--                    android:padding="10dp"-->
+<!--                    android:id="@+id/timestamp_value"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textAlignment="viewEnd"-->
+<!--                    android:text="MMM d,h:mm a"-->
+<!--                    />-->
+            </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</LinearLayout>
