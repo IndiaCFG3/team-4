@@ -9,12 +9,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.dev5151.educate.R;
+import com.dev5151.educate.fragments.JoinCourseBottomSheetFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -22,6 +25,7 @@ public class MainActivity2 extends AppCompatActivity {
     private FirebaseAuth kAuth;
     String userIDDD;
     FirebaseUser userrr;
+    MaterialButton btnJoinCourse;
 
 
     @Override
@@ -32,6 +36,15 @@ public class MainActivity2 extends AppCompatActivity {
         userIDDD = kAuth.getCurrentUser().getUid();
         userrr = kAuth.getCurrentUser();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        btnJoinCourse = findViewById(R.id.join_course);
+
+        btnJoinCourse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity2.this,Add_Course_Teacher.class);
+                startActivity(intent);
+            }
+        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
