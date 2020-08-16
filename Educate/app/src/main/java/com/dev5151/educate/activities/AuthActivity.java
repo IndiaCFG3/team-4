@@ -134,12 +134,11 @@ public class AuthActivity extends AppCompatActivity {
                                         if(doc.getBoolean("isStudent")) {
                                             Toast.makeText(AuthActivity.this,"Welcome Student", Toast.LENGTH_LONG).show();
                                             startActivity(new Intent(AuthActivity.this,MainActivity.class));
-                                            finish();
                                         } else {
                                             Toast.makeText(AuthActivity.this,"Welcome Teacher", Toast.LENGTH_LONG).show();
                                             startActivity(new Intent(AuthActivity.this,MainActivity2.class));
-                                            finish();
                                         }
+                                        finish();
                                     }
                                 }
                             });
