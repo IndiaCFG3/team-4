@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.AuthActivity2">
+    tools:context=".activities.AuthActivity2"
+    android:background="@color/colorWhite">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,27 +29,60 @@
             android:src="@drawable/add"/>
 
         <EditText
+            android:padding="10dp"
             android:id="@+id/register_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
+            android:background="@drawable/input_box"
             android:hint="Enter username"/>
 
         <EditText
+            android:padding="10dp"
             android:id="@+id/register_phone"
             android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="phone"
+            android:background="@drawable/input_box"
+
             android:hint="Enter Phone Number"/>
 
         <EditText
+            android:padding="10dp"
             android:id="@+id/register_email"
             android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
+            android:background="@drawable/input_box"
+
             android:hint="Enter Email Address"/>
+
+
+
+
+        <EditText
+            android:padding="10dp"
+            android:id="@+id/register_password"
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+
+            android:background="@drawable/input_box"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="Enter Password"/>
+
+        <EditText
+            android:padding="10dp"
+            android:id="@+id/register_cpassword"
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+
+            android:background="@drawable/input_box"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="Confirm Password"/>
 
         <TextView
             android:layout_marginTop="30dp"
@@ -57,7 +91,6 @@
             android:layout_height="wrap_content"
             android:text="Select:"
             android:textSize="20dp"/>
-
         <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -77,33 +110,23 @@
         </RadioGroup>
 
 
-        <EditText
-            android:id="@+id/register_password"
-            android:layout_marginTop="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="Enter Password"/>
-
-        <EditText
-            android:id="@+id/register_cpassword"
-            android:layout_marginTop="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="Confirm Password"/>
-
         <Button
+            android:padding="10dp"
             android:id="@+id/register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Register"
+            android:textAlignment="center"
+            android:background="@drawable/button_rounded"
             android:layout_marginTop="10dp"/>
         <Button
+            android:textColor="@color/colorBlack"
             android:id="@+id/link_to_login"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAllCaps="false"
+
             android:text="Already Have an Account?Sign in"
             android:background="@android:color/transparent"/>
 
