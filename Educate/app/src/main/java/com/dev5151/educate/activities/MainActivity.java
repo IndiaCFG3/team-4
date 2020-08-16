@@ -3,6 +3,8 @@ package com.dev5151.educate.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,7 +29,9 @@ public class MainActivity extends AppCompatActivity {
     String userIDDD;
     FirebaseUser userrr;
     MaterialButton btnJoinCourse;
+    RecyclerView courseList;
     public static OnClickInterface onClickInterface;
+    student_courses_adapter mStudent_courses_adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,9 +39,13 @@ public class MainActivity extends AppCompatActivity {
         kAuth = FirebaseAuth.getInstance();
         userIDDD = kAuth.getCurrentUser().getUid();
         userrr = kAuth.getCurrentUser();
-
+        courseList = findViewById(R.id.recyclerView);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         btnJoinCourse = findViewById(R.id.join_course);
+        mStudent_courses_adapter = new student_courses_adapter(this);
+        courseList.setLayoutManager(new LinearLayoutManager(this));
+
+        courseList.setAdapter(mStudent_courses_adapter);
 
         btnJoinCourse.setOnClickListener(new View.OnClickListener() {
             @Override
