@@ -17,6 +17,13 @@ class GenerateClassPdf(APIView):
         serializer = StudentSerializer(students, many=True)
         pdf = render_to_pdf('pdf/class.html', {'students' : serializer.data})
         return HttpResponse(pdf, content_type='application/pdf')
+
+    def post(self, request):
+        serializer = StudentSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
  
 
 class GenerateStudentPdf(APIView):
