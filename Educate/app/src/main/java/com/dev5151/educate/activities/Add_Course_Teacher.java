@@ -42,7 +42,7 @@ public class Add_Course_Teacher extends AppCompatActivity {
                 nameStr = name.getText().toString();
                 descStr = desc.getText().toString();
                 if((!nameStr.isEmpty()) && (!descStr.isEmpty())) {
-                    Courses courses = new Courses(id,nameStr,descStr,teacher,"",new ArrayList<String>(),new ArrayList<String>(),new ArrayList<String>());
+                    Courses courses = new Courses(id,nameStr,descStr,teacher,"",new ArrayList<String>(),new ArrayList<String>(),new ArrayList<String>(),new ArrayList<String>());
                     mFirestore.collection("Courses").document(id).set(courses);
                 } else {
                     Toast.makeText(Add_Course_Teacher.this,"Please fill in the details!",Toast.LENGTH_LONG).show();

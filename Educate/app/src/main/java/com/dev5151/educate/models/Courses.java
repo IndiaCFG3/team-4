@@ -12,6 +12,16 @@ public class Courses {
     public ArrayList<String> quiz;
     public ArrayList<String> material;
 
+    public ArrayList<String> getVideos() {
+        return videos;
+    }
+
+    public void setVideos(ArrayList<String> videos) {
+        this.videos = videos;
+    }
+
+    public ArrayList<String> videos;
+
     public String getCourseId() {
         return courseId;
     }
@@ -76,7 +86,7 @@ public class Courses {
         this.material = material;
     }
 
-    public Courses(String courseId, String name, String description, String teacher, String assistant, ArrayList<String> students, ArrayList<String> quiz, ArrayList<String> material) {
+    public Courses(String courseId, String name, String description, String teacher, String assistant, ArrayList<String> students, ArrayList<String> quiz, ArrayList<String> material, ArrayList<String> videos) {
         this.courseId = courseId;
         this.name = name;
         this.description = description;
@@ -85,5 +95,6 @@ public class Courses {
         this.students = students;
         this.quiz = quiz;
         this.material = material;
+        this.videos = videos;
     }
 }
