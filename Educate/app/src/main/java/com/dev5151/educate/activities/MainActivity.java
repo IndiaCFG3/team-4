@@ -14,14 +14,23 @@ import android.widget.EditText;
 import android.widget.Toast;
 import com.dev5151.educate.R;
 import com.dev5151.educate.interfaces.OnClickInterface;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.tabs.TabLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import android.view.View;
 import com.dev5151.educate.fragments.JoinCourseBottomSheetFragment;
 import com.google.android.material.button.MaterialButton;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseUser userrr;
     MaterialButton btnJoinCourse;
     RecyclerView courseList;
+    private FirebaseFirestore db;
     public static OnClickInterface onClickInterface;
     student_courses_adapter mStudent_courses_adapter;
     @Override
@@ -45,7 +55,21 @@ public class MainActivity extends AppCompatActivity {
         mStudent_courses_adapter = new student_courses_adapter(this);
         courseList.setLayoutManager(new LinearLayoutManager(this));
 
-        courseList.setAdapter(mStudent_courses_adapter);
+    courseList.setAdapter(mStudent_courses_adapter);
+        db.collection("Users").document(userIDDD).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                    if(task.isSuccessful())
+                    {
+                        ArrayList<String> courses= new ArrayList<>();
+                        DocumentSnapshot doc = task.getResult();
+                        courses = (ArrayList<String>) doc.get("courses");
+
+                    }
+                    }
+                });
 
         btnJoinCourse.setOnClickListener(new View.OnClickListener() {
             @Override
